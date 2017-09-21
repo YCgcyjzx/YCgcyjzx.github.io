@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp; 主成份分析Principal components analysis&amp;nbsp; 主成分分析（Principal components analysis，以下简称PCA）是最重要的降维方法之一，接下来我们分四部分来展开PCA的理论与实践：  数据特点 什么是主成份分析 主成份分析被发明的心路历程 python如何快速实现PCA  一、数据特点 维度灾难 变量关系不一般。具体来说，数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PCA主成份分析">
+<meta property="og:url" content="http://yoursite.comhttp://yoursite.com/2017/08/07/pca-e4-b8-bb-e6-88-90-e4-bb-bd-e5-88-86-e6-9e-90/index.html">
+<meta property="og:site_name" content="云南省高校数据化运营管理工程研究中心">
+<meta property="og:description" content="&amp;nbsp; 主成份分析Principal components analysis&amp;nbsp; 主成分分析（Principal components analysis，以下简称PCA）是最重要的降维方法之一，接下来我们分四部分来展开PCA的理论与实践：  数据特点 什么是主成份分析 主成份分析被发明的心路历程 python如何快速实现PCA  一、数据特点 维度灾难 变量关系不一般。具体来说，数据">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/图片1.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/图片2.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/5.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/6.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/7.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/8.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/9.png">
+<meta property="og:updated_time" content="2017-09-21T01:49:58.926Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PCA主成份分析">
+<meta name="twitter:description" content="&amp;nbsp; 主成份分析Principal components analysis&amp;nbsp; 主成分分析（Principal components analysis，以下简称PCA）是最重要的降维方法之一，接下来我们分四部分来展开PCA的理论与实践：  数据特点 什么是主成份分析 主成份分析被发明的心路历程 python如何快速实现PCA  一、数据特点 维度灾难 变量关系不一般。具体来说，数据">
+<meta name="twitter:image" content="http://172.20.47.32/wp-content/uploads/2017/08/图片1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.comhttp://yoursite.com/2017/08/07/pca-e4-b8-bb-e6-88-90-e4-bb-bd-e5-88-86-e6-9e-90/"/>
+
+
+
+
+
+  <title>PCA主成份分析 | 云南省高校数据化运营管理工程研究中心</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">云南省高校数据化运营管理工程研究中心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.comhttp://yoursite.com/2017/08/07/pca-e4-b8-bb-e6-88-90-e4-bb-bd-e5-88-86-e6-9e-90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云南省高校数据化运营管理工程研究中心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PCA主成份分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-07T00:26:02+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客/" itemprop="url" rel="index">
+                    <span itemprop="name">博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;</p>
+<h1 id="主成份分析"><a href="#主成份分析" class="headerlink" title="主成份分析"></a>主成份分析</h1><h1 id="Principal-components-analysis"><a href="#Principal-components-analysis" class="headerlink" title="Principal components analysis"></a>Principal components analysis</h1><p>&nbsp;</p>
+<p>主成分分析（Principal components analysis，以下简称PCA）是最重要的降维方法之一，接下来我们分四部分来展开PCA的理论与实践：</p>
+<ul>
+<li>数据特点</li>
+<li>什么是主成份分析</li>
+<li>主成份分析被发明的心路历程</li>
+<li>python如何快速实现PCA</li>
+</ul>
+<h2 id="一、数据特点"><a href="#一、数据特点" class="headerlink" title="一、数据特点"></a>一、数据特点</h2><ol>
+<li>维度灾难</li>
+<li>变量关系不一般。<br>具体来说，数据分析处理时涉及的样本有很多变量，会带来分析问题的复杂性。同时，这些变量彼此之间常常存在一定程度的、有时甚至是相当高的相关性，这说明数据是有冗余的，或者说是含在观测数据中的信息是有重叠的，这是我们利用主成分降维的前提条件，也可以说这这使得变量降维成为可能。</li>
+</ol>
+<p>可参考被博文广传的例子：</p>
+<ul>
+<li>比如拿到一个汽车的样本，里面既有以“千米/每小时”度量的最大速度特征，也有“英里/小时”的最大速度特征，显然这两个特征有一个多余。</li>
+<li>拿到一个数学系的本科生期末考试成绩单，里面有三列，一列是对数学的兴趣程度，一列是复习时间，还有一列是考试成绩。我们知道要学好数学，需要有浓厚的兴趣，所以第二项与第一项强相关，第三项和第二项也是强相关。那是不是可以合并第一项和第二项呢？<br>&nbsp;</li>
+</ul>
+<h2 id="二、什么是主成份分析"><a href="#二、什么是主成份分析" class="headerlink" title="二、什么是主成份分析"></a>二、什么是主成份分析</h2><ol>
+<li><h3 id="由来："><a href="#由来：" class="headerlink" title="由来："></a>由来：</h3></li>
+</ol>
+<p>主成分分析（principal component analysis）由皮尔逊（Pearson，1901）首先引入，后来被霍特林（Hotelling，1933）发展了。</p>
+<ol>
+<li><h3 id="描述；"><a href="#描述；" class="headerlink" title="描述；"></a>描述；</h3></li>
+</ol>
+<p>主成分分析是一种通过降维技术把多个变量化为少数几个主成分（综合变量）的统计分析方法。这些主成分能够反映原始变量的绝大部分信息，它们通常表示为原始变量的某种线性组合。</p>
+<ol>
+<li><h3 id="计算步骤"><a href="#计算步骤" class="headerlink" title="计算步骤"></a>计算步骤</h3>&nbsp;</li>
+</ol>
+<p>例子：（我们简单粗暴直接上例子，看例子我们带着问题，一步一步来）</p>
+<p>在制定服装标准的过程中，对128名成年男子的身材进行了测量，每人测得的指标中含有这样六项：身高（_x_1）、坐高（_x_2） 、胸围（_x_3） 、手臂长（_x_4） 、肋围（_x_5）和腰围（_x_6） 。</p>
+<p>表1  男子身材六项指标的样本相关矩阵</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/图片1.png" alt=""></p>
+<p><pre style="text-align: center;">表2  的前三个特征值、特征向量以及贡献率</pre><br><img src="http://172.20.47.32/wp-content/uploads/2017/08/图片2.png" alt=""></p>
+<p>前三个主成分分别为:</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/5.png" alt=""></p>
+<p>根据累计贡献率(一般要求累积贡献率达到85%)可考虑取前面两个或三个主成分。</p>
+<p>称第一主成分为（身材）大小成分，称第二主成分为形状成分（或胖瘦成分），称第三主成分为臂长成分。</p>
+<p>可考虑取前两个主成分。</p>
+<p>由于lambda 6(第六个特征值) 非常小，所以存在共线性关系：（输入公式）</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/6.png" alt=""></p>
+<h3 id="总结一下PCA的算法步骤："><a href="#总结一下PCA的算法步骤：" class="headerlink" title="总结一下PCA的算法步骤："></a>总结一下PCA的算法步骤：</h3><p>设————公式</p>
+<p>设有m条n维数据，m个样本，每个样本对应n个变量。</p>
+<ol>
+<li>求出自变量的协方差矩阵（或相关系数矩阵）；（协方差矩阵参考博文：  …………）</li>
+<li>求出协方差矩阵（或性关系数矩阵）的特征值及对应的特征向量；</li>
+<li>将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P（P为k*n)；(特征值特征向量参考博文…………)</li>
+<li>Y（k<em>1）=P^t</em>X即为降维到k维后的数据。<br>（这里需要建立表格，待博客编辑功能完善）</li>
+</ol>
+<h3 id="4-主成分的应用"><a href="#4-主成分的应用" class="headerlink" title="4.主成分的应用"></a>4.主成分的应用</h3><p>&gt;&gt;在一些应用中，这些主成分本身就是分析的目的，此时我们需要给（用来降维的前几个）主成分一个符合实际背景和意义的解释，以明白其大致的含义。</p>
+<p>&gt;&gt; 在主成分分析中，我们首先应保证所提取的前几个主成分的累计贡献率达到一个较高的水平，其次对这些被提取的主成分都能够给出符合实际背景和意义的解释。</p>
+<p>&gt;&gt; 主成分的解释其含义一般多少带有点模糊性，不像原始变量的含义那么清楚、确切，这是变量降维过程中不得不付出的代价。因此，提取的主成分个数<em>m</em>通常应明显小于原始变量个数<em>p</em>（除非<em>p</em>本身较小），否则维数降低的“利”可能抵不过主成分含义不如原始变量清楚的“弊”。</p>
+<p>&gt;&gt;在更多的另一些应用中，主成分只是要达到目的的一个中间结果（或步骤），而非目的本身。例如，将主成分用于聚类（主成分聚类）、回归（主成分回归）、评估正态性、寻找异常值，以及通过方差接近于零的主成分发现原始变量间的多重共线性关系等，此时的主成分可不必给出解释。</p>
+<h2 id="三、主成份为什么可以？"><a href="#三、主成份为什么可以？" class="headerlink" title="三、主成份为什么可以？"></a>三、主成份为什么可以？</h2><p><img src="http://172.20.47.32/wp-content/uploads/2017/08/7.png" alt=""></p>
+<h3 id="1-PCA-理论基础-方差最大理论"><a href="#1-PCA-理论基础-方差最大理论" class="headerlink" title="1.PCA**理论基础:方差最大理论**"></a>1.<strong>PCA**</strong>理论基础<strong><strong>:</strong></strong>方差最大理论**</h3><p>我们以一个二维数据为例：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/8.png" alt="">图一：寻找主成分的正交旋转</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/9.png" alt="">我们由二维空间向一维空间的转换，如何才能尽可能的保留信息呢，这就需要找一个方向使得投影后它们在投影方向上的方差尽可能达到最大，即在此方向上所含的有关原始信息样品间的差异信息是最多的。</p>
+<h2 id="四、如何实现"><a href="#四、如何实现" class="headerlink" title="四、如何实现"></a>四、如何实现</h2><ol>
+<li>我们可以按步编程</li>
+<li>我们利用sklearn<strong>官方文档地址：**</strong><a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html**" target="_blank" rel="external">http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html**</a></li>
+<li>代码实现<br><strong>import </strong>pandas <strong>as </strong>pd <strong>import </strong>numpy <strong>as </strong>np</li>
+</ol>
+<p><strong>from </strong>sklearn.decomposition <strong>import </strong>PCA</p>
+<p><strong>def </strong>pca<em>train(train1, test1): </em>#pca <strong>程序</strong>2__，主程序    _pca=PCA(copy=<strong>True</strong>, n_components=20, whiten=<strong>False</strong>)</p>
+<h3 id="（copy-bool-default-True-，如果False，传递给fit的数据将被覆盖并运行适合（X）-transform（X）将不会产生预期结果，请改用fit-transform（X）。-pac-fit-x-pca-fit-jiangwei-train1-pca-fit-train1-components-pca-components-主成份系数-train-pca-pca-transform-train1-testpca-pca-transform-test1-test-ratio-pca-explained-variance-ratio-各个主成份的方-差占比-sumrati0-reduce-lambda-x-y-x-y-ratio-所有主成份解释的方差）"><a href="#（copy-bool-default-True-，如果False，传递给fit的数据将被覆盖并运行适合（X）-transform（X）将不会产生预期结果，请改用fit-transform（X）。-pac-fit-x-pca-fit-jiangwei-train1-pca-fit-train1-components-pca-components-主成份系数-train-pca-pca-transform-train1-testpca-pca-transform-test1-test-ratio-pca-explained-variance-ratio-各个主成份的方-差占比-sumrati0-reduce-lambda-x-y-x-y-ratio-所有主成份解释的方差）" class="headerlink" title="_（copy : bool (default True)，如果False，传递给fit的数据将被覆盖并运行适合（X）.transform（X）将不会产生预期结果，请改用fit_transform（X）。    #pac_fit_x =pca.fit(jiangwei_train1)    _pca.fit(train1)    components = pca.components#####主成份系数    _train_pca = pca.transform(train1) testpca = pca.transform(test1)####test    _ratio = pca.explained_variance_ratio####各个主成份的方   差占比    _sumrati0 = reduce(lambda x,y:x+y,ratio)####_所有主成份解释的方差）"></a>_（copy : bool (default True)<strong>，如果</strong>False<strong>，传递给</strong>fit<strong>的数据将被覆盖并运行适合（</strong>X<strong>）</strong>.transform<strong>（</strong>X<strong>）将不会产生预期结果，请改用</strong>fit_transform<strong>（</strong>X<strong>）</strong>。    <strong>#pac_fit_x =pca.fit(jiangwei_train1)    _pca.fit(train1)    components = pca.components</strong>#####<strong>主成份系数<em> </em>   _train_pca = pca.transform(train1) test<em>pca = pca.transform(test1)</em>####test</strong>    _ratio = pca.explained_variance_ratio<strong>####</strong>各个主成份的方   差占比    _sum<em>rati0 = reduce(<strong>lambda </strong>x,y:x+y,ratio)</em>####_<em>所有主成份解释的方差）</em></h3><p>pca_svc = LinearSVC()</p>
+<p>pca_svc.fit(trainX,trainy)</p>
+<p>pca_svc = LinearSVC() pca_svc.fit(trainX,trainy) pca_y_predict= pca_svc.predict(test_pca )</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/06/e8-bf-99-e4-b8-aa-e6-98-af-e6-88-91-e7-9a-84-e7-ac-ac-e4-b8-80-e4-b8-aa-e5-8d-9a-e5-ae-a2-e5-91-a6-trashed/" rel="next" title="这个是我的第一个博客呦">
+                <i class="fa fa-chevron-left"></i> 这个是我的第一个博客呦
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/07/e9-a6-96-e8-a1-8c-e7-bc-a9-e8-bf-9b-e6-b5-8b-e8-af-95-trashed/" rel="prev" title="首行缩进测试">
+                首行缩进测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Kategorien</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主成份分析"><span class="nav-number">1.</span> <span class="nav-text">主成份分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Principal-components-analysis"><span class="nav-number">2.</span> <span class="nav-text">Principal components analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、数据特点"><span class="nav-number">2.1.</span> <span class="nav-text">一、数据特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、什么是主成份分析"><span class="nav-number">2.2.</span> <span class="nav-text">二、什么是主成份分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#由来："><span class="nav-number">2.2.1.</span> <span class="nav-text">由来：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述；"><span class="nav-number">2.2.2.</span> <span class="nav-text">描述；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算步骤"><span class="nav-number">2.2.3.</span> <span class="nav-text">计算步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下PCA的算法步骤："><span class="nav-number">2.2.4.</span> <span class="nav-text">总结一下PCA的算法步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-主成分的应用"><span class="nav-number">2.2.5.</span> <span class="nav-text">4.主成分的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、主成份为什么可以？"><span class="nav-number">2.3.</span> <span class="nav-text">三、主成份为什么可以？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-PCA-理论基础-方差最大理论"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.PCA**理论基础:方差最大理论**</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、如何实现"><span class="nav-number">2.4.</span> <span class="nav-text">四、如何实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（copy-bool-default-True-，如果False，传递给fit的数据将被覆盖并运行适合（X）-transform（X）将不会产生预期结果，请改用fit-transform（X）。-pac-fit-x-pca-fit-jiangwei-train1-pca-fit-train1-components-pca-components-主成份系数-train-pca-pca-transform-train1-testpca-pca-transform-test1-test-ratio-pca-explained-variance-ratio-各个主成份的方-差占比-sumrati0-reduce-lambda-x-y-x-y-ratio-所有主成份解释的方差）"><span class="nav-number">2.4.1.</span> <span class="nav-text">_（copy : bool (default True)，如果False，传递给fit的数据将被覆盖并运行适合（X）.transform（X）将不会产生预期结果，请改用fit_transform（X）。    #pac_fit_x =pca.fit(jiangwei_train1)    _pca.fit(train1)    components = pca.components#####主成份系数    _train_pca = pca.transform(train1) testpca = pca.transform(test1)####test    _ratio = pca.explained_variance_ratio####各个主成份的方   差占比    _sumrati0 = reduce(lambda x,y:x+y,ratio)####_所有主成份解释的方差）</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="文章," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="隐性语义索引Latent Semantic Idexing">
+<meta name="keywords" content="文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="隐形语义索引（LSI）">
+<meta property="og:url" content="http://yoursite.comhttp://yoursite.com/2017/08/31/e9-9a-90-e5-bd-a2-e8-af-ad-e4-b9-89-e7-b4-a2-e5-bc-95-ef-bc-88lsi-ef-bc-89/index.html">
+<meta property="og:site_name" content="云南省高校数据化运营管理工程研究中心">
+<meta property="og:description" content="隐性语义索引Latent Semantic Idexing">
+<meta property="og:image" content="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D80/sign=a9417ebecbfdfc03e178eeb8d53f7e58/7af40ad162d9f2d33691acafa1ec8a136227ccea.jpg">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/aa-1-300x59.png">
+<meta property="og:image" content="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D80/sign=a9417ebecbfdfc03e178eeb8d53f7e58/7af40ad162d9f2d33691acafa1ec8a136227ccea.jpg">
+<meta property="og:image" content="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D80/sign=a9417ebecbfdfc03e178eeb8d53f7e58/7af40ad162d9f2d33691acafa1ec8a136227ccea.jpg">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/c-300x182.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/u-1-300x210.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/SIGMA-300x211.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/V-300x213.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/sigma3-300x211.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/u3-1-300x209.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/vt3-300x213.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/c-2-300x182.png">
+<meta property="og:image" content="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D187/sign=50b538a78244ebf869716037eef8d736/0df431adcbef760970e3983b2bdda3cc7dd99ead.jpg">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/1-1.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/08/4-1.png">
+<meta property="og:updated_time" content="2017-09-21T01:49:58.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="隐形语义索引（LSI）">
+<meta name="twitter:description" content="隐性语义索引Latent Semantic Idexing">
+<meta name="twitter:image" content="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D80/sign=a9417ebecbfdfc03e178eeb8d53f7e58/7af40ad162d9f2d33691acafa1ec8a136227ccea.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.comhttp://yoursite.com/2017/08/31/e9-9a-90-e5-bd-a2-e8-af-ad-e4-b9-89-e7-b4-a2-e5-bc-95-ef-bc-88lsi-ef-bc-89/"/>
+
+
+
+
+
+  <title>隐形语义索引（LSI） | 云南省高校数据化运营管理工程研究中心</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">云南省高校数据化运营管理工程研究中心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.comhttp://yoursite.com/2017/08/31/e9-9a-90-e5-bd-a2-e8-af-ad-e4-b9-89-e7-b4-a2-e5-bc-95-ef-bc-88lsi-ef-bc-89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云南省高校数据化运营管理工程研究中心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">隐形语义索引（LSI）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-31T15:24:12+08:00">
+                2017-08-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客/" itemprop="url" rel="index">
+                    <span itemprop="name">博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="隐性语义索引"><a href="#隐性语义索引" class="headerlink" title="   隐性语义索引"></a><span style="font-size: 36pt;"><strong>   隐性语义索引</strong></span></h1><h1 id="Latent-Semantic-Idexing"><a href="#Latent-Semantic-Idexing" class="headerlink" title="Latent Semantic Idexing"></a>Latent Semantic Idexing</h1><a id="more"></a>
+<p><span style="font-size: 10pt;">         隐性语义索引（Latent Semantic Idexing），也可译为隐含语义索引，是近年来逐渐兴起的不同于关键词检索的搜索引擎解决方案，其通过海量文献找出词汇之间的关系，当两个词或一组词大量出现在同一个文档中时，这些词之间就可以被认为是语义相关。比如:</span></p>
+<p><span style="font-size: 10pt;">(1)”手机”和”电话”这两个词在人们写文章时经常混用，这两个词在大量的网页中同时出现，搜索引擎就会认为这两个词是极为语义相关的。</span></p>
+<p><span style="font-size: 10pt;">(2)”Latent Semantic Idexing”和”隐性语义索引”(虽然一个是英语，一个是中文)这两个词大量出现在相同的网页中，虽然搜索引擎还不能知道<span style="font-size: small;">“Latent Semantic Idexing</span>或”隐性语义索引”指的是什么，但是却可以从语义上把<span style="font-size: small;">“Latent Semantic Idexing</span>“、”<span style="font-size: small;">隐性语义索引</span>“、”LSI”、”潜在语义索引”等词紧紧的连在一起。可见潜在语义索引并不依赖于语言。</span></p>
+<p><span style="font-size: 10pt;">(3)如梨子和李子这两个词，也是大量出现在相同文档中，不过紧密度低于同义词。所以搜索引擎不会认为它们是语义相关的。</span></p>
+<p><span style="font-size: 10pt;">(4)对“水”一词而言，与其语义相关的可能是“热水”、“凉水”之类，但潜在相关的则可以是“蒸汽”、“ 冰”等，这里有很大区别。</span></p>
+<p><span style="font-size: 10pt;">        隐性语义索引使得检索结果的实际效果更接近于人的自然语言，在一定程度上提高检索结果的相关性，目前已被逐渐的应用到图书馆、数据库和搜索引擎的算法当中。Google是典型的代表。</span></p>
+<hr>
+<p><span style="font-size: 10pt;">本文分四部分：</span></p>
+<p><span style="font-size: 10pt;">(1)基础知识</span></p>
+<p><span style="font-size: 10pt;">(2)  讲解奇异值分解(SVD)；</span></p>
+<p><span style="font-size: 10pt;">(3)  讲解利用SVD进行信息检索的隐性语义检索（LSI）；</span></p>
+<p><span style="font-size: 10pt;">(4)  实例分析。</span><!--more--></p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>1. 矩阵的秩：矩阵的秩是矩阵中线性无关的行或列的个数</p>
+<p>2. 对角矩阵：对角矩阵是除对角线外所有元素都为零的方阵</p>
+<p>3. 单位矩阵：如果对角矩阵中所有对角线上的元素都为1，该矩阵称为单位矩阵</p>
+<p>4. 奇异值：  假设M是mn维矩阵（秩为r），奇异值是M<em>·M的r个特征值的算术平方根（即M</em>·M的特征值的开方）。</p>
+<p>5.<a href="https://baike.so.com/doc/279162-295488.html" target="_blank" rel="external">对称矩阵</a>：若矩阵A满足条件A=A<sup>T  </sup>,则称A为对称矩阵。由定义知对称矩阵一定是方阵,而且位于<a href="https://baike.so.com/doc/6962381.html" target="_blank" rel="external">主对角线</a>对称位置上的元素必对应相等.即a<sub>ij</sub>=a<sub>ji</sub>,对任意i,j都成立。</p>
+<p>6.<a href="https://baike.baidu.com/item/%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/11030459?fr=aladdin" target="_blank" rel="external">正定矩阵</a>：设M是n阶方阵，如果对任何非零向量z，都有<em>z<sup class="normal">T</sup>__Mz</em>&gt; 0，其中<em>z<sup class="normal">T</sup></em><span class="Apple-converted-space"> </span>表示z的转置，就称M正定矩阵。</p>
+<p><pre> <span style="font-family: georgia,palatino,serif;"> 判定定理：判定定理1：对称阵A为正定的充分必要条件是：A的特征值全为正。<br>                        判定定理2：对称阵A为正定的充分必要条件是：A的各阶顺序主子式都为正。<br>                        判定定理3：任意阵A为正定的充分必要条件是：A合同于单位阵。</span><strong>   </strong></pre><br><!--more--></p>
+<h2 id="奇异值分解-SVD"><a href="#奇异值分解-SVD" class="headerlink" title="奇异值分解(SVD)"></a>奇异值分解(SVD)</h2><p><span style="color: #00ccff;">         <span style="color: #333333;"><strong>奇异值分解</strong></span></span>（Singular Value Decomposition）是线性代数中一种重要的<a href="https://baike.baidu.com/item/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3" target="_blank" rel="external">矩阵分解</a>，是矩阵分析中正规矩阵酉对角化的推广。奇异值分解在有两个方面的应用：一是<a href="http://www.cnblogs.com/pinard/p/6251584.html" target="_blank" rel="external">SVD在降维中的应用</a>；二是<a href="http://www.cnblogs.com/pinard/p/6351319.html" target="_blank" rel="external">SVD在协同过滤推荐算法中的应用</a>。具体应用内容本文不阐述。下面来看一下奇异值分解的定义。</p>
+<div class="para">        假设M是一个m×n阶矩阵（秩为r），其中的元素全部属于实数域或复数域，则存在一个分解使得<img src="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D80/sign=a9417ebecbfdfc03e178eeb8d53f7e58/7af40ad162d9f2d33691acafa1ec8a136227ccea.jpg" alt=""></div><br><div class="para"><img src="http://172.20.47.32/wp-content/uploads/2017/08/aa-1-300x59.png" alt=""></div><br><div class="para"></div><br><div class="para"></div><br><div class="para"></div><br><div class="para"></div><br><div class="para"></div><br><div class="para" style="text-align: left;"></div><br><div class="para" style="text-align: left;">U是m×m阶酉矩阵；Σ是半正定m×n阶对角矩阵，其对角线上的元素σi为M的奇异值；而V<em>，即V的共轭转置，是n×n阶<a href="https://baike.baidu.com/item/%E9%85%89%E7%9F%A9%E9%98%B5" target="_blank" rel="external">酉矩阵</a>；这样的分解就称作M的奇异值分解。常见的做法是奇异值由大而小排列。如此Σ便能由M唯一确定了。(虽然U和V仍然不能确定。)</em></div><br><div class="para"></div><br><div class="para"></div><br><div class="para"></div><br><strong>直观的解释</strong><br><div class="para"><br><br>在矩阵M的奇异值分解中<span class="Apple-converted-space"> </span><img src="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D80/sign=a9417ebecbfdfc03e178eeb8d53f7e58/7af40ad162d9f2d33691acafa1ec8a136227ccea.jpg" alt=""><br><br></div><br><div class="para">·U的列(columns)是M中奇异值的左奇异向量，组成一套对M的正交”输入”或”分析”的基向量，这些向量是MM的特征向量。</div><br><div class="para">·V的列(columns)是M中奇异值的右奇异向量，组成一套对M的正交”输出”的基向量。这些向量是M<em>M的特征向量。</em></div><br><div class="para">·Σ对角线上的元素是奇异值，可视为是在输入与输出间进行的标量的”膨胀控制”。这些是MM及MM<em>的奇异值，并与U和V的列向量相对应。</em></div><br><div class="para"></div><br><div class="para"></div><br><div class="para"></div><br><strong>奇异值的物理意义及几何意义</strong><br><div class="para">        矩阵的奇异值是一个数学意义上的概念，一般是由奇异值分解（Singular Value Decomposition，简称SVD分解）得到。</div><br><div class="para"><br><div class="para">        如果要问奇异值表示什么物理意义，那么就必须考虑在不同的实际工程应用中奇异值所对应的含义。例如在图像处理领域，奇异值不仅可以应用在数据压缩上，还可以对图像去噪。如果一副图像包含噪声，我们有理由相信那些较小的奇异值就是由于噪声引起的。当我们强行令这些较小的奇异值为0时，就可以去除图片中的噪声。奇异值往往对应着矩阵中隐含的重要信息，且重要性和奇异值大小正相关。</div><br><div class="para"><br><div><br><div>       奇异值的几何含义为：这组变换后的新的向量序列的长度。</div><br><div></div><br></div><br><div></div><br><div><br><br><strong>奇异值及分解的物理意义及几何意义</strong><br><div>        奇异值分解是一个有着很明显的物理意义的一种方法，它可以将一个比较复杂的矩阵用更小更简单的几个子矩阵的相乘来表示，这些小矩阵描述的是矩阵的重要的特性。就像是描述一个人一样，给别人描述说这个人长得浓眉大眼，方脸，络腮胡，而且带个黑框的眼镜，这样寥寥的几个特征，就让别人脑海里面就有一个较为清楚的认识，实际上，人脸上的特征是有着无数种的，之所以能这么描述，是因为人天生就有着非常好的抽取重要特征的能力，让机器学会抽取重要的特征，SVD是一个重要的方法。</div><br></div><br></div><br><div class="para"><br><div class="para"><span style="color: #262626; font-family: Helvetica;">      奇异值分解的几何含义为：对于任何的一个矩阵，我们要找到一组两两正交单位向量序列，使得矩阵作用在此向量序列上后得到新的向量序列保持两两正交。</span></div><br><div class="para"></div><br><div class="para"></div><br><span style="font-size: 12pt;"><strong>下面说一下在python中实现SVD</strong></span><br><div class="para"><span style="font-size: 12pt;">        Numpy有一个linalg的线性代数工具箱。接下来我们了解一下领用该工具箱如何实现下矩阵的SVD处理。</span></div><br><div class="para">矩阵A=[[1,3,5,9,7],[8,12,3,4,7],[3,1,5,7,13],[11,10,5,9,3],[14,16,2,8,7]</div><br><div class="para"></div><br><div class="para"> <span style="font-size: 14pt;">`from numpy import `</span></div><br>U,Sigma,V<sup>T </sup><span style="font-size: 12pt;">=linalg.svd(A)</span><br><br></div><br><div class="para">在python中运行上述代码，得到一下结果：</div><br></div><br><div class="para">U= array([[-0.27373252,  0.50806498, -0.43241186, -0.64288486,  0.25818506],<br>[-0.44384892, -0.14105122,  0.47686421, -0.47422006, -0.57516828],<br>[-0.31310645,  0.74960322,  0.32368329,  0.48004092, -0.06963623],<br>[-0.48013606, -0.17353387, -0.66483461,  0.3448185 , -0.42243401],<br>[-0.63206198, -0.36049346,  0.19709028,  0.11169292,  0.64747373]])</div><br><div class="para"></div><br><div class="para">Sigma=array([ 36.74814846,  14.27057024,   6.16821006,   3.07272287,   1.85363656])</div><br><div class="para"></div><br><div class="para"> VT=array([[-0.51415401, -0.5816577 , -0.21580804, -0.43018369, -0.40704897],<br>[-0.37330787, -0.48505774,  0.29967486,  0.3370468 ,  0.64958038],<br>[-0.03248352,  0.20328693, -0.33122133, -0.66879308,  0.63295141],<br>[ 0.76810761, -0.61964022, -0.09418406, -0.10598015,  0.07716396],<br>[-0.07240458, -0.03337268, -0.86315912,  0.49277325,  0.07599146]])</div><br><div class="para"><br><br> 注意：矩阵Sisma以行向量返回，而非矩阵。（由于矩阵除了对角线上元素其它全为0，故为节省空间仅返回对角元素。）<br><br></div><br><!--more--><br><div class="para"><br><div><br><div><br><div><br><div><noscript>&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;lt;img src=”<a href="https://pic4.zhimg.com/df96a8b5c3b45c90924d4f11b007ca47_b.jpg" target="_blank" rel="external">https://pic4.zhimg.com/df96a8b5c3b45c90924d4f11b007ca47_b.jpg</a>“ data-rawwidth=”252” data-rawheight=”252” class=”content_image” width=”252”&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;gt;当矩阵</noscript></div><br></div>
+
+<h2 id="amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-lt-img-src-”https-pic4-zhimg-com-34ca30b59f8f462f4aa552f807d2e867-b-jpg“-data-rawwidth-”494”-data-rawheight-”232”-class-”origin-image-zh-lightbox-thumb”-width-”494”-data-original-”https-pic4-zhimg-com-34ca30b59f8f462f4aa552f807d2e867-r-jpg-quot-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-gt隐性语义索引（LSI）"><a href="#amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-lt-img-src-”https-pic4-zhimg-com-34ca30b59f8f462f4aa552f807d2e867-b-jpg“-data-rawwidth-”494”-data-rawheight-”232”-class-”origin-image-zh-lightbox-thumb”-width-”494”-data-original-”https-pic4-zhimg-com-34ca30b59f8f462f4aa552f807d2e867-r-jpg-quot-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-gt隐性语义索引（LSI）" class="headerlink" title="&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;lt;img src=”https://pic4.zhimg.com/34ca30b59f8f462f4aa552f807d2e867_b.jpg“ data-rawwidth=”494” data-rawheight=”232” class=”origin_image zh-lightbox-thumb” width=”494” data-original=”https://pic4.zhimg.com/34ca30b59f8f462f4aa552f807d2e867_r.jpg&quot;&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;gt隐性语义索引（LSI）"></a><noscript>&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;lt;img src=”<a href="https://pic4.zhimg.com/34ca30b59f8f462f4aa552f807d2e867_b.jpg" target="_blank" rel="external">https://pic4.zhimg.com/34ca30b59f8f462f4aa552f807d2e867_b.jpg</a>“ data-rawwidth=”494” data-rawheight=”232” class=”origin_image zh-lightbox-thumb” width=”494” data-original=”<a href="https://pic4.zhimg.com/34ca30b59f8f462f4aa552f807d2e867_r.jpg&quot;&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;gt" target="_blank" rel="external">https://pic4.zhimg.com/34ca30b59f8f462f4aa552f807d2e867_r.jpg&quot;&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;gt</a></noscript>隐性语义索引（LSI）</h2><p>隐性语义索引(Latent Semantic Indexing,以下简称LSI)，有的文章也叫Latent Semantic  Analysis（LSA）。其实是一个东西，后面我们统称LSI，它是一种简单实用的主题模型。隐性语义索引是一种用<a href="http://www.zwbk.org/MyLemmaInter.aspx?title=%e5%a5%87%e5%bc%82%e5%80%bc" title="%e5%a5%87%e5%bc%82%e5%80%bc" target="_blank" rel="external">奇异值</a>分解(SVD)方法获得在文本中术语和概念之间关系的索引和获取方法。该方法的主要依据是在相同文章中的词语一般有类似的含义,可以从一篇文章中提取术语关系，从而建立起主要概念内容。</p>
+<p><span style="color: #333333;"> <span style="font-size: 12pt;">    <span style="font-family: georgia,palatino,serif;">  </span>LSI使用SVD来对单词-文档矩阵进行分解。SVD可以看作是从单词-文档矩阵中发现不相关的索引变量(因子)，将原来的数据映射到语义空间内。  LSI 本质上是把每个特征映射到了一个更低维的子空间（sub space)， 不过必须提醒的是，无论是上述哪一种降维方法，都会造成信息的偏差，进而影响后续分类/聚类的准确率。 降维是希望以可接受的效果损失下，大大提高运行效率和节省内存空间。然而能不降维的时候还是不要降维（比如你只有几千篇文档要处理，那样真的没有必要降维）。</span></span></p>
+<!--more-->
+<p>首先简要回顾下SVD：对于一个<span id="MathJax-Element-1-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">m×n</span></span> 的矩阵<span id="MathJax-Element-2-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;/math&gt;"><span id="MathJax-Span-6" class="math"><span id="MathJax-Span-7" class="mrow"><span id="MathJax-Span-8" class="mi">M</span></span></span></span>，可以分解为下面三个矩阵：</p>
+<div class="MathJax_Display"><span id="MathJax-Element-3-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;msub&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;U&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;msub&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x03A3;&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;msubsup&gt;&lt;mi&gt;V&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;/msubsup&gt;&lt;/math&gt;"><span id="MathJax-Span-9" class="math"><span id="MathJax-Span-10" class="mrow"><span id="MathJax-Span-11" class="msubsup"><span id="MathJax-Span-13" class="texatom"><span id="MathJax-Span-14" class="mrow"><span id="MathJax-Span-15" class="mi">                                                                                     M</span></span></span></span></span></span><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block"><sub>m×n</sub>=U<sub>m×m</sub>Σ <sub>m×n</sub>V<sup>T</sup><sub>n×n</sub></span></span></div><br>为了降低矩阵的维度到k，SVD的分解可以近似的写为：<br><div class="MathJax_Display"><span id="MathJax-Element-4-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;msub&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x2248;&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;U&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;msub&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x03A3;&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;msubsup&gt;&lt;mi&gt;V&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;/msubsup&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block">                                                                                      M<sub>m×n</sub>=U<sub>m×m</sub>Σ <sub><span style="font-size: small;">k</span></sub><sub>×k</sub>V<sup>T</sup><sub>n×n             </sub></span></span></div><br>如果把上式用到我们的主题模型，则SVD可以这样解释：我们输入的有m个文本，每个文本有n个词。而<span id="MathJax-Element-5-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">A<sub>ij</sub></span></span> 则对应第i个文本的第j个词的特征值，这里最常用的是基于预处理后的标准化TF-IDF值。k是我们假设的主题数，一般要比文本数少。SVD分解后,<span id="MathJax-Element-6-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;U&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">U<sub>il</sub></span></span> 对应第i个文本和第l个主题的相关度。<span id="MathJax-Element-7-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;V&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">V<sub>jm</sub></span></span> 对应第j个词和第m个词义的相关度。<span id="MathJax-Element-8-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x03A3;&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">Σ<sub>lm</sub></span></span> 对应第l个主题和第m个词义的相关度。<br><br>也可以反过来解释：我们输入的有m个词，对应n个文本。而<span id="MathJax-Element-9-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">A<sub>ij</sub></span></span> 则对应第i个词档的第j个文本的特征值，这里最常用的是基于预处理后的标准化TF-IDF值。k是我们假设的主题数，一般要比文本数少。SVD分解后，<span id="MathJax-Element-6-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;U&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">U<sub>il</sub></span></span> 对应第i个词和第l个词义的相关度。<span id="MathJax-Element-7-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;V&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">V<sub>jm</sub></span></span> 对应第j个文本和第m个主题的相关度。<span id="MathJax-Element-8-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x03A3;&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">Σ<sub>lm </sub></span></span>对应第l个词义和第m个主题的相关度。<br><br>这样我们通过一次SVD，就可以得到文档和主题的相关度，词和词义的相关度以及词义和主题的相关度。<br><br>&nbsp;<br><br>下面来说一下如何利用SVD进行信息检索的LSI方法:<br><br>设M是一个mn维，秩为r的词汇-文档矩阵；<br><br>1.利用SVD方法将矩阵M分解转化成多个矩阵的乘积，即<img src="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D80/sign=a9417ebecbfdfc03e178eeb8d53f7e58/7af40ad162d9f2d33691acafa1ec8a136227ccea.jpg" alt="">；<br><br>2.利用SVD分解降维后的结果来构造一个新的、改进的词汇-文档矩阵C’；<br><br>3.通过C’得到一个更好的计算相似度的方法。<br><br>4.向之前一样按相似度高低输出文档结果。<!--more--><br><br></div><br></div><br></div>
+
+<h2 id="实例分析："><a href="#实例分析：" class="headerlink" title="实例分析："></a><span style="font-size: 18pt;">实例分析：</span></h2><p>下面我们举个例子来说明：C<sub>m×n</sub>=U<sub>m×m</sub>Σ <sub><span style="font-size: small;">k</span></sub><sub>×k</sub>V<sup>T</sup><sub>n×n  </sub></p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/c-300x182.png" alt=""></p>
+<p>C为一个词项-文档矩阵，为方便，这里使用的是布尔矩阵。m为词项数目，n为文档数目。</p>
+<p>&nbsp;</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/u-1-300x210.png" alt=""></p>
+<p>U中每个词项对应一行，每个语义维度对应一列，矩阵中的元素<span id="MathJax-Element-6-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;U&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">U<sub>il</sub></span></span>给出的是词项i和第l个语义维度的关系强弱程度。可以想象这些列向量分别代表了不同的语义维度，比如：政治、体育、娱乐、财经等主题。U是个正交矩阵。</p>
+<p>&nbsp;</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/SIGMA-300x211.png" alt=""></p>
+<p>Σ中对角元素是矩阵C的奇异值。奇异值的大小度量的事相应的语义维度的重要性。</p>
+<p>&nbsp;</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/V-300x213.png" alt=""></p>
+<p>V<sup>T</sup>中每一列对应一篇文档，每一行对应一个语义维度，<span id="MathJax-Element-7-Frame" class="MathJax" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;V&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;"><span class="MJX_Assistive_MathML">V<sub>jm</sub></span></span> 代表的是文档j与语义维度的关系强弱程度。矩阵V<sup>T</sup>是一个正定矩阵。</p>
+<p>在这里我们通过忽略较小的奇异值，即忽略较小的奇异值对应的语义维度来达到降维的目的。在本例题中这里假设忽略后2个小于等于1的语义维度，相当于U、V<sup>T </sup>矩阵上的相应维度被忽略。此时的矩阵分别记为记为Σ<sub>3 ，</sub>U<sub><span style="font-size: small;">3</span></sub>、V<sup>T</sup><sub><span style="font-size: small;">3 </span></sub><span style="font-size: small;">。</span><img src="http://172.20.47.32/wp-content/uploads/2017/08/sigma3-300x211.png" alt=""></p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/u3-1-300x209.png" alt=""></p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/vt3-300x213.png" alt=""> 则利用SVD分解降维后的结果来构造一个新的、改进的词汇-文档矩阵C’=U<sub><span style="font-size: small;">3 </span></sub><span style="font-size: small;"><em></em></span><span style="font-size: small;"><sup> </sup></span>Σ<sub>3</sub><sub> </sub>V<sup>T</sup><sub><span style="font-size: small;">3 </span></sub></p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/08/c-2-300x182.png" alt=""></p>
+<p>矩阵C’可以看做是矩阵C的一个二位表示。</p>
+<p>在上面我们通过LSI得到的文本主题矩阵(C’)可以用于文本相似度计算。而计算方法一般是通过余弦相似度。余弦相似度计算公式如下所示：</p>
+<div class="para">设向量 A = (A1,A2,…,An)，B = (B1,B2,…,Bn) ，相似度为</div><br><div class="para"><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D187/sign=50b538a78244ebf869716037eef8d736/0df431adcbef760970e3983b2bdda3cc7dd99ead.jpg" alt=""></div><br><div class="para"><br><div class="layoutblockcenter formula"><br><br>则对于上面的三文档两主题的例子。我们可以计算第一个文本和第二个文本在C与C’的余弦相似度如下 ：<br><br></div><br></div><br><span style="font-size: 36pt;"><strong><img src="http://172.20.47.32/wp-content/uploads/2017/08/1-1.png" alt=""></strong></span><br><br><span style="font-size: 36pt;"><strong><img src="http://172.20.47.32/wp-content/uploads/2017/08/4-1.png" alt=""></strong></span><br><div class="para"><br><div class="layoutblockcenter formula"><br><br>通过余弦相似度求得文档一与文档二在原词汇-文档矩阵中和新词汇-文档矩阵的相似度分别为0.25、0.32，相似度有所提高。可以知道原文档的相关性不高，通过LSI将它们映射到低维空间后，两者的相似度会提高。因此可知LSI能够解决一词多义与语义关联问题。<!--more--><br><br></div><br></div>
+
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>LSI是最早出现的主题模型了，它的算法原理很简单，一次奇异值分解就可以得到主题模型，同时解决词义的问题，非常漂亮。但是LSI有很多不足，导致它在当前实际的主题模型中已基本不再使用。</p>
+<p>主要的问题有：</p>
+<ol>
+<li>SVD计算非常的耗时，尤其是我们的文本处理，词和文本数都是非常大的，对于这样的高维度矩阵做奇异值分解是非常难的。</li>
+<li>主题值的选取对结果的影响非常大，很难选择合适的k值。</li>
+<li>LSI得到的不是一个概率模型，缺乏统计基础，结果难以直观的解释。<br>对于问题1，主题模型非负矩阵分解（NMF）可以解决矩阵分解的速度问题。</li>
+</ol>
+<p>对于问题2，大部分主题模型的主题的个数选取一般都是凭经验的，较新的层次狄利克雷过程（HDP）可以自动选择主题个数。</p>
+<p>对于问题3，人们整出了pLSI(也叫pLSA)和隐含狄利克雷分布(LDA)这类基于概率分布的主题模型来替代基于矩阵分解的主题模型。</p>
+<p>对于一些规模较小的问题，如果想快速粗粒度的找出一些主题分布的关系，则LSI是比较好的一个选择，其他时候，如果你需要使用主题模型，推荐使用LDA和HDP。<!--more--></p>
+<h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a><span style="color: #262626; text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: georgia,palatino,serif; font-size: 18pt; font-style: normal; font-weight: normal; word-spacing: 0px; display: inline !important; white-space: pre-wrap; orphans: 2; widows: 2; float: none; background-color: #ffffff;">参考文献：</span></h2><p><span style="font-family: georgia,palatino,serif; font-size: 14pt;"><span style="color: #262626; text-transform: none; text-indent: 0px; letter-spacing: normal; font-style: normal; font-weight: normal; word-spacing: 0px; display: inline !important; white-space: pre-wrap; orphans: 2; widows: 2; float: none; background-color: #ffffff;">[1] We Recommend a Singular Value Decomposition（</span><a href="https://link.zhihu.com/?target=http%3A//www.ams.org/samplings/feature-column/fcarc-svd" target="_blank" rel="external">Feature Column from the AMS</a><span style="color: #262626; text-transform: none; text-indent: 0px; letter-spacing: normal; font-style: normal; font-weight: normal; word-spacing: 0px; display: inline !important; white-space: pre-wrap; orphans: 2; widows: 2; float: none; background-color: #ffffff;">）。</span></span><br><span style="font-family: georgia,palatino,serif; font-size: 14pt;"><span style="color: #262626; text-transform: none; text-indent: 0px; letter-spacing: normal; font-style: normal; font-weight: normal; word-spacing: 0px; display: inline !important; white-space: pre-wrap; orphans: 2; widows: 2; float: none; background-color: #ffffff;">[2] 徐树方，《矩阵计算的理论与方法》，北京大学出版社。</span></span></p>
+<p><span style="font-size: 14pt;"><span style="font-family: georgia,palatino,serif;"> [3]<a href="http://blog.csdn.net/zhongkejingwang/article/details/43053513" target="_blank" rel="external">http://blog.csdn.net/zhongkejingwang/article/details/43053513</a></span></span></p>
+<p><div class="para-title level-2" style="display: block; clear: both; zoom: 1; overflow: hidden; border-left: 12px solid #4f9cee; line-height: 24px; font-size: 22px; font-weight: normal; font-family: 'Microsoft YaHei', SimHei, Verdana; margin: 35px 0px 15px -30px; background: url('https://bkssl.bdimg.com/static/wiki-lemma/normal/resource/img/paraTitle-line_c5e6d61.png') #ffffff; position: relative; color: #333333; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"></div><br><span style="font-size: 14pt;"> </span></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/文章/" rel="tag"># 文章</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/23/153-trashed/" rel="next" title="153__trashed">
+                <i class="fa fa-chevron-left"></i> 153__trashed
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/12/plsa-e4-b8-bb-e9-a2-98-e6-a8-a1-e5-9e-8b/" rel="prev" title="PLSA主题模型">
+                PLSA主题模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Kategorien</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#隐性语义索引"><span class="nav-number">1.</span> <span class="nav-text">   隐性语义索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Latent-Semantic-Idexing"><span class="nav-number">2.</span> <span class="nav-text">Latent Semantic Idexing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">2.1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#奇异值分解-SVD"><span class="nav-number">2.2.</span> <span class="nav-text">奇异值分解(SVD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-lt-img-src-”https-pic4-zhimg-com-34ca30b59f8f462f4aa552f807d2e867-b-jpg“-data-rawwidth-”494”-data-rawheight-”232”-class-”origin-image-zh-lightbox-thumb”-width-”494”-data-original-”https-pic4-zhimg-com-34ca30b59f8f462f4aa552f807d2e867-r-jpg-quot-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-amp-gt隐性语义索引（LSI）"><span class="nav-number">2.3.</span> <span class="nav-text">&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;lt;img src=”https://pic4.zhimg.com/34ca30b59f8f462f4aa552f807d2e867_b.jpg“ data-rawwidth=”494” data-rawheight=”232” class=”origin_image zh-lightbox-thumb” width=”494” data-original=”https://pic4.zhimg.com/34ca30b59f8f462f4aa552f807d2e867_r.jpg"&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;gt隐性语义索引（LSI）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例分析："><span class="nav-number">2.4.</span> <span class="nav-text">实例分析：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">2.5.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献："><span class="nav-number">2.6.</span> <span class="nav-text">参考文献：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

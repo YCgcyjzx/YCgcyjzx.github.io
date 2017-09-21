@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一、主题模型在讲PLSA主题模型前，我们先来看一个例子，理解一下什么是主题模型。这有两句话，第一句是‘乔布斯离我们而去了’，第二句是‘苹果价格会不会降’。如果是由人来判断，我们一看就知道这两个句子是有关联的，因为第一句中出现了乔布斯，所以我们自然而然地认为第二句中的苹果指的不是我们吃的苹果，而是电子产品的品牌苹果。但是如果我们采用传统判断文本相似度的方法来判断，并不会得到两者相似的结论，因为这些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PLSA主题模型">
+<meta property="og:url" content="http://yoursite.comhttp://yoursite.com/2017/09/12/plsa-e4-b8-bb-e9-a2-98-e6-a8-a1-e5-9e-8b/index.html">
+<meta property="og:site_name" content="云南省高校数据化运营管理工程研究中心">
+<meta property="og:description" content="一、主题模型在讲PLSA主题模型前，我们先来看一个例子，理解一下什么是主题模型。这有两句话，第一句是‘乔布斯离我们而去了’，第二句是‘苹果价格会不会降’。如果是由人来判断，我们一看就知道这两个句子是有关联的，因为第一句中出现了乔布斯，所以我们自然而然地认为第二句中的苹果指的不是我们吃的苹果，而是电子产品的品牌苹果。但是如果我们采用传统判断文本相似度的方法来判断，并不会得到两者相似的结论，因为这些">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/PWJ@DE9VY23L_5DL.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/X2BPNCQUFSSSCZ0Y-300x148.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/RGMRRNI7_PF6NVV4A4J4U.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/YOX@AX3S9OO94L6NV5OP.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/HOHYV4FSBCB4_I@8FT.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/YOX@AX3S9OO94L6NV5OP.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/F@CER1YA_6CDIYWA5T-1.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/HOHYV4FSBCB4_I@8FT.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/RGMRRNI7_PF6NVV4A4J4U.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/F@CER1YA_6CDIYWA5T.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/PVUBSGJC6W6YIX7AG41X.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/YOX@AX3S9OO94L6NV5OP.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/LBKSLC0FRAYVJSE1CSB.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/H0K5SHMR61T2EJ8D_853DL.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/RGMRRNI7_PF6NVV4A4J4U.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/F@CER1YA_6CDIYWA5T-1.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G4UBZZ99B2ENQ@N3@OT.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/F@CER1YA_6CDIYWA5T-1.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/AQG_DTLL69MWN3U7KT.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/E@RYDZYCWMXEPTF3FKL.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/AQG_DTLL69MWN3U7KT.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/JEEAIWOX7Q_ZTXVGO.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/HOHYV4FSBCB4_I@8FT.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/0PDS1BXBW6JZ4WPAPU.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/EGHAEH1LSULAUXQMTU5B.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/EGHAEH1LSULAUXQMTU5B.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/75WGWK24P1GCXOS0L_E.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/PWJ@DE9VY23L_5DL.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/YUC@ARB8W342DP2U.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/P0SU85@LB2VZGUHR6L.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/1CRWALWDTHG@M1I.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/PBABJDBXDELK5TW.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/HOHYV4FSBCB4_I@8FT.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9-1.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/D8I3V@Z3ZD6N7T.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9-1.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/B2AQS9MNUSFEGHFPN.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/TMTCZTTGILKO82I73P6-300x31.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/1XWJN0SBKNLCI53.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/B2AQS9MNUSFEGHFPN-2.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/AFRBJ1O42D08BLF.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/RGMRRNI7_PF6NVV4A4J4U.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/D8I3V@Z3ZD6N7T.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/65XA3422X9A@E08BWAU.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/62H4TP02PAHTVS8BZS.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/Y_HK7YDM8UXYCFE5.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/QOWI6LORFK22LD7SZO.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/75WGWK24P1GCXOS0L_E.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/JEEAIWOX7Q_ZTXVGO.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/CL4QKCISVLB64XZAO.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/7O7Z0QFTBHPJ1IP82N.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/E98XK8B8@BMB32ADBLL.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/9PE7_II6@Y7XZ62QJEL.png">
+<meta property="og:image" content="http://172.20.47.32/wp-content/uploads/2017/09/0TYHKCZPWN3A@UELT.png">
+<meta property="og:updated_time" content="2017-09-21T01:49:58.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PLSA主题模型">
+<meta name="twitter:description" content="一、主题模型在讲PLSA主题模型前，我们先来看一个例子，理解一下什么是主题模型。这有两句话，第一句是‘乔布斯离我们而去了’，第二句是‘苹果价格会不会降’。如果是由人来判断，我们一看就知道这两个句子是有关联的，因为第一句中出现了乔布斯，所以我们自然而然地认为第二句中的苹果指的不是我们吃的苹果，而是电子产品的品牌苹果。但是如果我们采用传统判断文本相似度的方法来判断，并不会得到两者相似的结论，因为这些">
+<meta name="twitter:image" content="http://172.20.47.32/wp-content/uploads/2017/09/PWJ@DE9VY23L_5DL.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.comhttp://yoursite.com/2017/09/12/plsa-e4-b8-bb-e9-a2-98-e6-a8-a1-e5-9e-8b/"/>
+
+
+
+
+
+  <title>PLSA主题模型 | 云南省高校数据化运营管理工程研究中心</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">云南省高校数据化运营管理工程研究中心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.comhttp://yoursite.com/2017/09/12/plsa-e4-b8-bb-e9-a2-98-e6-a8-a1-e5-9e-8b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云南省高校数据化运营管理工程研究中心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PLSA主题模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-12T20:43:31+08:00">
+                2017-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客/" itemprop="url" rel="index">
+                    <span itemprop="name">博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://172.20.47.32/wp-content/uploads/2017/09/PWJ@DE9VY23L_5DL.png" alt=""></p>
+<h1 id="一、主题模型"><a href="#一、主题模型" class="headerlink" title="一、主题模型"></a><strong>一、主题模型</strong></h1><p>在讲PLSA主题模型前，我们先来看一个例子，理解一下什么是主题模型。这有两句话，第一句是‘乔布斯离我们而去了’，第二句是‘苹果价格会不会降’。如果是由人来判断，我们一看就知道这两个句子是有关联的，因为第一句中出现了乔布斯，所以我们自然而然地认为第二句中的苹果指的不是我们吃的苹果，而是电子产品的品牌苹果。但是如果我们采用传统判断文本相似度的方法来判断，并不会得到两者相似的结论，因为这些方法往往基于一个基本假设：文档之间重复的词语越多越可能相似。这一点在实际中并不尽然。很多时候相关程度取决于背后的语义联系，而非表面的词语重复。</p>
+<p>那么，这种语义关系应该怎样度量呢？事实上在自然语言处理领域里已经有了很多从词、词组、句子、篇章角度进行衡量的方法。本文要介绍的是其中一个语义挖掘的利器：<strong>主题模型</strong>。</p>
+<p><strong>主题模型</strong>（Topic Models）是一套试图在大量文档中发现潜在主题结构的机器学习模型，就是对文字中隐含主题的一种建模方法。主题模型通过分析文本中的词来发现文档中的主题、主题之间的联系方式和主题的发展。通过主题模型可以使我们组织和总结无法人工标注的海量电子文档。</p>
+<h1 id="二、PLSA"><a href="#二、PLSA" class="headerlink" title="二、PLSA"></a>二、PLSA</h1><p>在之前的博客里我们已经学习了LSA，但LSA缺少令人满意的统计学基础，运算量过大，且无法解决一词多义的问题，因此，在LSA的基础上，Thomas Hofmann于1999年提出了PLSA模型。</p>
+<h1 id="三、PLSA的文档生成模型"><a href="#三、PLSA的文档生成模型" class="headerlink" title="三、PLSA的文档生成模型"></a>三、PLSA的文档生成模型</h1><p>要理解PLSA主题模型，我们首先要理解PLSA假定的文档生成模型是什么。假设你要写M篇文档，由于一篇文档由各个不同的词组成，所以你需要确定每篇文档里每个位置上的词。再假定你一共有K个可选的主题，有V个可选的词，咱们来玩一个扔骰子的游戏。</p>
+<p><strong>        **</strong>1、**假设你每写一篇文档会制作一颗K面的“文档-主题”骰子（扔此骰子能得到K个主题中的任意一个），和K个V面的“主题-词项” 骰子（每个骰子对应一个主题，K个骰子对应之前的K个主题，且骰子的每一面对应要选择的词项，V个面对应着V个可选的词）。</p>
+<p>比如可令K=3，即制作1个含有3个主题的“文档-主题”骰子，这3个主题可以是：教育、经济、交通。然后令V = 3，制作3个有着3面的“主题-词项”骰子，其中，教育主题骰子的3个面上的词可以是：大学、老师、课程，经济主题骰子的3个面上的词可以是：市场、企业、金融，交通主题骰子的3个面上的词可以是：高铁、汽车、飞机。如下图所示：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/X2BPNCQUFSSSCZ0Y-300x148.png" alt="">        <strong>  2、</strong>每写一个词，先扔该“文档-主题”骰子选择主题，得到主题的结果后，使用和主题结果对应的那颗“主题-词项”骰子，扔该骰子选择要写的词。要注意，每篇文档有其自己的“文档-主题”骰子。</p>
+<p>上面这个投骰子产生词的过程简化下便是：“先以一定的概率选取主题，再以一定的概率选取词”。事实上，一开始可供选择的主题有3个：教育、经济、交通，那为何偏偏选取教育这个主题呢？其实是随机选取的，<br>只是这个随机遵循一定的概率分布。比如3个主题的概率分布是{教育：0.5，经济：0.3，交通：0.2}，我们把各个主题z在文档d中出现的概率分布称之为主题分布，且是一个多项分布。</p>
+<p>同样的，从主题分布中随机抽取出教育主题后，依然面对着3个词：大学、老师、课程，这3个词都可能被选中，但它们被选中的概率也是不一样的。比如3个词的概率分布是{大学：0.5，老师：0.3，课程：0.2}，我们把各个词语w在主题z下出现的概率分布称之为词分布，这个词分布也是一个多项分布。</p>
+<p>所以，选主题和选词都是两个随机的过程，先从主题分布{教育：0.5，经济：0.3，交通：0.2}中抽取出主题：教育，然后从该主题对应的词分布{大学：0.5，老师：0.3，课程：0.2}中抽取出词：大学。</p>
+<p><strong>        3、</strong>最后，不停的重复扔“文档-主题”骰子和”主题-词项“骰子，重复N次（产生N个词），完成一篇文档，重复这产生一篇文档的方法M次，则完成M篇文档。</p>
+<p>在这个过程中，我们并未关注词和词之间出现的顺序，所以pLSA是一种词袋方法。具体说来，该模型假设一组共现(co-occurrence)词项关联着一个隐含的主题类别。</p>
+<p><strong>接下来，我们对生成模型中出现的一些变量、概率做一下定义：</strong><br><img src="http://172.20.47.32/wp-content/uploads/2017/09/RGMRRNI7_PF6NVV4A4J4U.png" alt="">表示海量文档中某篇文档被选中的概率。                                                                                                                                                                       <img src="http://172.20.47.32/wp-content/uploads/2017/09/YOX@AX3S9OO94L6NV5OP.png" alt="">表示词 <img src="http://172.20.47.32/wp-content/uploads/2017/09/HOHYV4FSBCB4_I@8FT.png" alt="">在给定文档<img src="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png" alt="">中出现的概率。怎么计算得到呢？针对海量文档，对所有文档进行分词后，得到一个词汇列表，这样每篇文档就是一个词语的集合。对于每个词语，用它在文档中出现的次数除以文档中词语总的数目便是它在文档中出现的概率<img src="http://172.20.47.32/wp-content/uploads/2017/09/YOX@AX3S9OO94L6NV5OP.png" alt="">。         <img src="http://172.20.47.32/wp-content/uploads/2017/09/F@CER1YA_6CDIYWA5T-1.png" alt="">表示具体某个主题<img src="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png" alt="">在给定文档<img src="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png" alt="">下出现的概率。                                                                                                                                              <img src="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png" alt="">表示具体某个词<img src="http://172.20.47.32/wp-content/uploads/2017/09/HOHYV4FSBCB4_I@8FT.png" alt="">在给定主题<img src="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png" alt="">下出现的概率，与主题关系越密切的词，其条件概率<img src="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png" alt="">越大。</p>
+<p><strong>利用上述的第1、3、4个概率，我们便可以按照如下的步骤得到“文档-词项”的生成模型：</strong><br>1、按照概率<img src="http://172.20.47.32/wp-content/uploads/2017/09/RGMRRNI7_PF6NVV4A4J4U.png" alt="">选择一篇文档<img src="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png" alt="">。<br>2、选定文档 <img src="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png" alt=""> 后，从主题分布中按照概率<img src="http://172.20.47.32/wp-content/uploads/2017/09/F@CER1YA_6CDIYWA5T.png" alt="">选择一个隐含的主题类别。<br>3、选定<img src="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png" alt=""> 后，从词分布中按照概率<img src="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png" alt="">选择一个词<br><strong>所以PLSA中生成文档的整个过程便是选定文档生成主题，确定主题生成词。</strong></p>
+<h1 id="四、PLSA模型"><a href="#四、PLSA模型" class="headerlink" title="四、PLSA模型"></a>四、PLSA模型</h1><p>我们已经知道了PLSA的生成模型，那如何根据已经产生好的文档反推其主题呢？这个利用看到的文档推断其隐藏的主题（分布）的过程（其实也就是产生文档的逆过程），便是主题建模的目的：自动地发现文档集中的主题（分布）。</p>
+<p>文档d和单词w自然是可被观察到的，但主题z却是隐藏的。如下图所示：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/PVUBSGJC6W6YIX7AG41X.png" alt=""></p>
+<p>上图中，文档d和词w是我们得到的样本，可观测得到，所以对于任意一篇文档，其<img src="http://172.20.47.32/wp-content/uploads/2017/09/YOX@AX3S9OO94L6NV5OP.png" alt="">是已知的。从而可以根据大量已知的文档-词项信息 ，训练出文档-主题 和主题-词项 ，如下公式所示：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/LBKSLC0FRAYVJSE1CSB.png" alt="">         故得到文档中每个词的生成概率为：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/H0K5SHMR61T2EJ8D_853DL.png" alt=""></p>
+<div>         由于<img src="http://172.20.47.32/wp-content/uploads/2017/09/RGMRRNI7_PF6NVV4A4J4U.png" alt="">可事先计算求出，而<img src="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png" alt="">和<img src="http://172.20.47.32/wp-content/uploads/2017/09/F@CER1YA_6CDIYWA5T-1.png" alt="">未知，所以<img src="http://172.20.47.32/wp-content/uploads/2017/09/G4UBZZ99B2ENQ@N3@OT.png" alt="">就是我们要估计的参数（值），通俗点说，就是要最大化这个θ。</div><br><div>         常用的参数估计方法有极大似然估计MLE、最大后验证估计MAP、贝叶斯估计等等。因为该待估计的参数中含有隐变量z，所以我们可以考虑EM算法。</div>
+
+<h1 id="五、EM求解PLSA模型"><a href="#五、EM求解PLSA模型" class="headerlink" title="五、EM求解PLSA模型"></a>五、EM求解PLSA模型</h1><p>首先尝试从矩阵的角度来描述待估计的两个未知变量<img src="http://172.20.47.32/wp-content/uploads/2017/09/3XMDJ7VQ@HH069NYIQN.png" alt="">和<img src="http://172.20.47.32/wp-content/uploads/2017/09/F@CER1YA_6CDIYWA5T-1.png" alt="">。</p>
+<p>假定用<img src="http://172.20.47.32/wp-content/uploads/2017/09/AQG_DTLL69MWN3U7KT.png" alt="">表示词表<img src="http://172.20.47.32/wp-content/uploads/2017/09/E@RYDZYCWMXEPTF3FKL.png" alt="">在主题<img src="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png" alt="">上的一个多项分布，则<img src="http://172.20.47.32/wp-content/uploads/2017/09/AQG_DTLL69MWN3U7KT.png" alt="">可以表示成一个向量，每个元素<img src="http://172.20.47.32/wp-content/uploads/2017/09/JEEAIWOX7Q_ZTXVGO.png" alt="">表示词项<img src="http://172.20.47.32/wp-content/uploads/2017/09/HOHYV4FSBCB4_I@8FT.png" alt="">出现在主题<img src="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png" alt="">中的概率，即</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/0PDS1BXBW6JZ4WPAPU.png" alt=""></p>
+<p>用<img src="http://172.20.47.32/wp-content/uploads/2017/09/EGHAEH1LSULAUXQMTU5B.png" alt="">表示所有主题Z在文档<img src="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png" alt="">上的一个多项分布，则<img src="http://172.20.47.32/wp-content/uploads/2017/09/EGHAEH1LSULAUXQMTU5B.png" alt="">可以表示成一个向量，每个元素<img src="http://172.20.47.32/wp-content/uploads/2017/09/75WGWK24P1GCXOS0L_E.png" alt="">表示主题<img src="http://172.20.47.32/wp-content/uploads/2017/09/U3@2TQBAAN3V0NVQS7AN.png" alt="">出现在文档<img src="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9.png" alt="">中的概率，即</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/PWJ@DE9VY23L_5DL.png" alt="">         这样，巧妙的把 和 转换成了两个矩阵。换言之，最终我们要求解的参数是这两个矩阵：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/YUC@ARB8W342DP2U.png" alt="">         由于词和词之间是相互独立的，所以整篇文档N个词的分布为：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/P0SU85@LB2VZGUHR6L.png" alt="">         再由于文档和文档之间也是相互独立的，所以整个语料库中词的分布为（整个语料库M篇文档，每篇文档N个词）：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/1CRWALWDTHG@M1I.png" alt="">         其中，<img src="http://172.20.47.32/wp-content/uploads/2017/09/PBABJDBXDELK5TW.png" alt="">表示词项<img src="http://172.20.47.32/wp-content/uploads/2017/09/HOHYV4FSBCB4_I@8FT.png" alt="">在文档<img src="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9-1.png" alt="">中的词频，<img src="http://172.20.47.32/wp-content/uploads/2017/09/D8I3V@Z3ZD6N7T.png" alt="">表示文档<img src="http://172.20.47.32/wp-content/uploads/2017/09/G_KZ1GLB29MRY1HIM9-1.png" alt="">中词的总数，显然有<img src="http://172.20.47.32/wp-content/uploads/2017/09/B2AQS9MNUSFEGHFPN.png" alt="">。从而得到整个语料库的词分布的对数似然函数：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/TMTCZTTGILKO82I73P6-300x31.png" alt="">         其中，</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/1XWJN0SBKNLCI53.png" alt=""></p>
+<p>又 <img src="http://172.20.47.32/wp-content/uploads/2017/09/B2AQS9MNUSFEGHFPN-2.png" alt="">，上式等于</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/AFRBJ1O42D08BLF.png" alt=""></p>
+<p>又<img src="http://172.20.47.32/wp-content/uploads/2017/09/RGMRRNI7_PF6NVV4A4J4U.png" alt="">，<img src="http://172.20.47.32/wp-content/uploads/2017/09/D8I3V@Z3ZD6N7T.png" alt="">已知，所以对数似然函数可以转换为：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/65XA3422X9A@E08BWAU.png" alt=""></p>
+<p>则E(L)为：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/62H4TP02PAHTVS8BZS.png" alt=""></p>
+<p>即：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/Y_HK7YDM8UXYCFE5.png" alt=""></p>
+<p>接下来用EM算法对未知参数求解：</p>
+<p>E-step：假定参数已知，计算此时隐变量的后验概率。</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/QOWI6LORFK22LD7SZO.png" alt=""></p>
+<p>求得后验概率后，代入E(L)，求解使E(L)达到最大值的<img src="http://172.20.47.32/wp-content/uploads/2017/09/75WGWK24P1GCXOS0L_E.png" alt="">，<img src="http://172.20.47.32/wp-content/uploads/2017/09/JEEAIWOX7Q_ZTXVGO.png" alt="">值，即M-step。</p>
+<p>M-step：这是一个多元函数求极值问题，并且已知有如下约束条件：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/CL4QKCISVLB64XZAO.png" alt="">         采用朗格朗日乘数法，引入两个拉格朗日乘子，构造拉格朗日函数如下：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/7O7Z0QFTBHPJ1IP82N.png" alt=""></p>
+<p>分别对参数求偏导，并使偏导结果等于0。</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/E98XK8B8@BMB32ADBLL.png" alt=""></p>
+<p>消除拉格朗日乘子，估计出参数：</p>
+<p><img src="http://172.20.47.32/wp-content/uploads/2017/09/9PE7_II6@Y7XZ62QJEL.png" alt=""></p>
+<p>&nbsp;</p>
+<p>不断循环EM步骤，直到结果收敛，结束求解过程。</p>
+<h1 id="六、PLSA的优缺点"><a href="#六、PLSA的优缺点" class="headerlink" title="六、PLSA的优缺点"></a>六、PLSA的优缺点</h1><h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><p>1、定义了概率模型，而且每个变量以及相应的概率分布和条件概率分布都有明确的物理解释；<br>2、相比于LSA隐含了高斯分布假设，PLSA隐含的Multi-nomial分布假设更符合文本特性；<br>3、PLSA的优化目标是KL-divergence最小，而不是依赖于最小均方误差等准则；<br>4、可以利用各种model selection和complexity control准则来确定topic的维数；</p>
+<h2 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h2><p>1、PLSA的概率模型不够完备：在document层面上没有提供合适的概率模型，使得pLSA并不是完备的生成式模型，而必须在确定document i的情况下才能对模型进行随机抽样；<br>2、随着document和term 个数的增加，PLSA模型也线性增加，变得越来越庞大；<br>3、当一个新的document来到时，没有一个好的方式得到<img src="http://172.20.47.32/wp-content/uploads/2017/09/0TYHKCZPWN3A@UELT.png" alt="">;<br>4、EM算法需要反复的迭代，需要很大计算量；</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/31/e9-9a-90-e5-bd-a2-e8-af-ad-e4-b9-89-e7-b4-a2-e5-bc-95-ef-bc-88lsi-ef-bc-89/" rel="next" title="隐形语义索引（LSI）">
+                <i class="fa fa-chevron-left"></i> 隐形语义索引（LSI）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/13/248-trashed/" rel="prev" title="248__trashed">
+                248__trashed <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Kategorien</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、主题模型"><span class="nav-number">1.</span> <span class="nav-text">一、主题模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、PLSA"><span class="nav-number">2.</span> <span class="nav-text">二、PLSA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、PLSA的文档生成模型"><span class="nav-number">3.</span> <span class="nav-text">三、PLSA的文档生成模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、PLSA模型"><span class="nav-number">4.</span> <span class="nav-text">四、PLSA模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、EM求解PLSA模型"><span class="nav-number">5.</span> <span class="nav-text">五、EM求解PLSA模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、PLSA的优缺点"><span class="nav-number">6.</span> <span class="nav-text">六、PLSA的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点："><span class="nav-number">6.1.</span> <span class="nav-text">优点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点："><span class="nav-number">6.2.</span> <span class="nav-text">缺点：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
